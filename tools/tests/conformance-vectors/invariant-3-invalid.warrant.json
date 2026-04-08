@@ -1,0 +1,128 @@
+{
+  "_vector_metadata": {
+    "vector_id": "invariant-3-invalid",
+    "target": "invariant-3",
+    "target_description": "Zero-Trust Persona Exclusion: zero-trust persona listed as approver",
+    "expected_result": "invalid",
+    "expected_error": "Persona 'untrusted-agent' has trust_level 'zero' but appears in stakeholders.approvers",
+    "warrant_version": "0.11.0",
+    "notes": "Persona with trust_level 'zero' is listed in stakeholders.approvers — violates Invariant 3"
+  },
+  "blueprint": {
+    "warrant_version": "0.11.0",
+    "conformance_level": "L1",
+    "manifest": {
+      "blueprint_id": "inv3-invalid-001",
+      "version": "1.0.0",
+      "owner": "did:example:owner",
+      "status": "draft",
+      "created_at": "2025-01-01T00:00:00Z"
+    },
+    "objective": {
+      "primary_objective": "Invariant 3 invalid vector",
+      "domain": "testing",
+      "autonomy_level": "supervised",
+      "success_criteria": [
+        "Fail invariant 3 check"
+      ],
+      "out_of_scope": [
+        "Nothing"
+      ]
+    },
+    "ux_logic": {
+      "interaction_model": "approve",
+      "user_facing": true,
+      "tone_and_voice": "Professional and concise"
+    },
+    "feasibility": {
+      "budget_limit": {
+        "amount": 1000,
+        "currency": "USD",
+        "time_period": "monthly"
+      }
+    },
+    "stakeholders": {
+      "approvers": [
+        "trusted-reviewer",
+        "untrusted-agent"
+      ]
+    },
+    "compliance_frameworks": {
+      "frameworks": [
+        {
+          "name": "EU AI Act",
+          "version": "2024"
+        }
+      ]
+    },
+    "risk_profile": {
+      "hitl_triggers": [
+        {
+          "metric": "error_rate",
+          "threshold": 0.5,
+          "operator": "gt",
+          "action": "pause_and_verify"
+        }
+      ],
+      "on_failure": {
+        "default": "escalate",
+        "escalation_path": [
+          "did:example:escalation-contact"
+        ]
+      }
+    },
+    "data_model": {
+      "data_sources": [
+        "https://example.com/source"
+      ]
+    },
+    "boundaries": {
+      "kill_switch": {
+        "type": "api_endpoint",
+        "uri": "https://example.com/kill"
+      },
+      "scope_boundaries": [
+        "Must not access production databases"
+      ],
+      "prohibited_actions": []
+    },
+    "integration_map": {
+      "authorised_integrations": [
+        "https://example.com/api"
+      ],
+      "tool_access": [
+        "mcp://tool-server/tool-name"
+      ],
+      "failure_handling": "Retry with exponential backoff"
+    },
+    "success_metrics": {
+      "primary_kpi": "accuracy",
+      "baseline": "95%",
+      "measurement_frequency": "daily",
+      "evidence_pack_config": {
+        "storage": "s3://bucket",
+        "retention_days": 365
+      }
+    },
+    "failure_modes": {
+      "known_failure_modes": [
+        {
+          "scenario": "API timeout",
+          "severity": "high",
+          "mitigation": "Retry with backoff"
+        }
+      ]
+    },
+    "personas": [
+      {
+        "id": "trusted-reviewer",
+        "trust_level": "standard"
+      },
+      {
+        "id": "untrusted-agent",
+        "trust_level": "zero"
+      }
+    ],
+    "runtime_observability": {}
+  }
+}

@@ -1,0 +1,352 @@
+{
+  "warrant_version": "0.11.0",
+  "agent_id": "did:example:sample-agent-001",
+  "agent_name": "WARRANT Sample Agent",
+  "conformance_level": "L2",
+
+  "manifest": {
+    "blueprint_id": "sample-blueprint-001",
+    "name": "Sample Intent Blueprint — L2 Reference",
+    "version": "1.0.0",
+    "owner": "did:example:blueprint-owner",
+    "status": "active",
+    "created_at": "2026-03-07T00:00:00Z",
+    "updated_at": "2026-03-07T12:00:00Z",
+    "lifecycle_management": {
+      "versioning_policy": "Semantic versioning; patch for non-breaking, minor for additive, major for breaking",
+      "review_cadence": "Quarterly",
+      "deprecation_policy": "90-day notice before archival"
+    },
+    "discovery_uri": "https://example.com/agents/sample-agent-001/blueprint"
+  },
+
+  "objective": {
+    "primary_objective": "Demonstrate a fully populated L2 Intent Blueprint covering all 14 Pillars",
+    "domain": "documentation",
+    "autonomy_level": "supervised",
+    "success_criteria": [
+      "Blueprint passes L2 schema validation",
+      "All five cross-Pillar invariants are satisfiable"
+    ],
+    "out_of_scope": [
+      "Production deployment",
+      "Cryptographic signing (L3 concern)"
+    ]
+  },
+
+  "ux_logic": {
+    "interaction_model": "approve",
+    "user_facing": true,
+    "tone_and_voice": "Professional and concise",
+    "edge_case_handling": "Present options to the user and await explicit selection",
+    "failure_ux": "Display a clear error message with suggested next steps",
+    "explainability_uri": "https://example.com/agents/sample-agent-001/explain"
+  },
+
+  "feasibility": {
+    "budget_limit": {
+      "amount": 10000,
+      "currency": "USD",
+      "time_period": "monthly"
+    },
+    "compute_constraints": "Max 4 vCPU, 16 GB RAM per task",
+    "timeline": "Q2 2026",
+    "dependencies": [
+      "External API availability",
+      "Database migration completion"
+    ],
+    "hard_stops": [
+      "Budget exhausted",
+      "Regulatory hold issued"
+    ],
+    "active_period": {
+      "timezone": "UTC",
+      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "window_start": "08:00",
+      "window_end": "18:00"
+    },
+    "top_up_config": {
+      "top_up_protocol": {
+        "protocol_uri": "https://example.com/api/budget/top-up",
+        "max_top_up_amount": 2000,
+        "approval_required": true
+      }
+    }
+  },
+
+  "stakeholders": {
+    "approvers": [
+      "did:example:lead-engineer",
+      "did:example:compliance-officer"
+    ],
+    "notification_list": [
+      "did:example:project-manager",
+      "did:example:security-team"
+    ]
+  },
+
+  "compliance_frameworks": {
+    "frameworks": [
+      {
+        "name": "ISO 27001",
+        "version": "2022",
+        "controls": [
+          {
+            "control_id": "A.8.1",
+            "pillars": ["data_model", "boundaries"]
+          },
+          {
+            "control_id": "A.12.4",
+            "pillars": ["runtime_observability", "success_metrics"]
+          }
+        ]
+      },
+      { "name": "SOC 2 Type II", "version": "2023" }
+    ]
+  },
+
+  "risk_profile": {
+    "hitl_triggers": [
+      {
+        "metric": "error_rate",
+        "threshold": 0.05,
+        "operator": "gt",
+        "action": "pause_and_verify"
+      },
+      {
+        "metric": "latency_p99_ms",
+        "threshold": 3000,
+        "operator": "gte",
+        "action": "notify_only"
+      }
+    ],
+    "on_failure": {
+      "default": "escalate",
+      "escalation_path": [
+        "did:example:lead-engineer",
+        "did:example:on-call-sre"
+      ],
+      "failure_ux": "Notify the user that the operation has been paused pending review",
+      "edge_case_handling": "Log full context and escalate to the on-call engineer"
+    },
+    "financial_risk_limit": {
+      "amount": 5000,
+      "currency": "USD"
+    },
+    "alert_endpoint": "https://example.com/alerts/sample-agent-001",
+    "alert_format": "webhook",
+    "drift_detection": {
+      "threshold": 0.15,
+      "action": "alert",
+      "evaluation_interval": "hourly"
+    }
+  },
+
+  "data_model": {
+    "data_sources": [
+      "https://example.com/api/v1/customers",
+      "https://example.com/api/v1/orders"
+    ],
+    "data_outputs": [
+      "https://example.com/api/v1/reports"
+    ],
+    "data_access": [
+      "https://example.com/api/v1/customers",
+      "https://example.com/api/v1/orders"
+    ],
+    "data_write": [
+      "https://example.com/api/v1/reports"
+    ],
+    "data_forbidden": [
+      "https://example.com/api/v1/admin"
+    ],
+    "retention_policy": "90 days for operational data; 7 years for audit logs",
+    "sensitive_data_categories": [
+      "PII",
+      "Financial"
+    ],
+    "data_ownership": "Data Controller: Example Corp",
+    "data_sovereignty_region": "DE"
+  },
+
+  "boundaries": {
+    "prohibited_actions": [
+      {
+        "resource_pattern": "^https://example\\.com/api/v1/admin.*",
+        "methods": ["*"],
+        "description": "Admin endpoints are off-limits to all agents"
+      },
+      {
+        "resource_pattern": "^mcp://unverified-exchange/.*",
+        "methods": ["TRADE", "EXECUTE"],
+        "description": "No trading on unverified exchanges"
+      }
+    ],
+    "scope_boundaries": [
+      "Must not access production databases directly",
+      "Must not initiate financial transactions exceeding the budget_limit",
+      "Must not communicate with external parties without approval"
+    ],
+    "kill_switch": {
+      "type": "api_endpoint",
+      "uri": "https://example.com/api/v1/agents/sample-agent-001/kill"
+    }
+  },
+
+  "integration_map": {
+    "authorised_integrations": [
+      "https://example.com/api/v1/customers",
+      {
+        "uri": "https://example.com/api/v1/orders",
+        "justification": "Required for order processing and report generation",
+        "protocol_version": "v1.2"
+      }
+    ],
+    "tool_access": [
+      "mcp://tool-server/data-transform",
+      "mcp://tool-server/report-generator"
+    ],
+    "tool_forbidden": [
+      "mcp://tool-server/admin-console"
+    ],
+    "rate_limits": {
+      "requests": 1000,
+      "window_seconds": 60
+    },
+    "warrant_handshake": true,
+    "failure_handling": "Retry with exponential backoff (max 3 attempts), then escalate to on-call",
+    "handshake_failure_handling": "Abort integration attempt and notify the compliance officer"
+  },
+
+  "success_metrics": {
+    "primary_kpi": "task_completion_rate",
+    "secondary_kpis": [
+      "average_response_time_ms",
+      "error_rate_percent"
+    ],
+    "baseline": "95% task completion within SLA",
+    "measurement_frequency": "daily",
+    "degradation_threshold": "Below 90% triggers review",
+    "evidence_pack_config": {
+      "storage": "s3://example-evidence-bucket/sample-agent",
+      "retention_days": 365
+    },
+    "kpis": [
+      {
+        "metric_id": "task_completion_rate",
+        "description": "Percentage of tasks completed successfully within SLA"
+      },
+      {
+        "metric_id": "error_rate_percent",
+        "description": "Percentage of requests resulting in errors"
+      }
+    ]
+  },
+
+  "failure_modes": {
+    "known_failure_modes": [
+      {
+        "scenario": "Customer API timeout",
+        "severity": "high",
+        "mitigation": "Retry with exponential backoff, then serve cached data",
+        "related_integration": "https://example.com/api/v1/customers"
+      },
+      {
+        "scenario": "Orders API returns 5xx",
+        "severity": "high",
+        "mitigation": "Queue request for retry; alert on-call if persistent",
+        "related_integration": "https://example.com/api/v1/orders"
+      },
+      {
+        "scenario": "Data transform tool unavailable",
+        "severity": "medium",
+        "mitigation": "Fall back to raw data output and flag for manual review",
+        "related_integration": "mcp://tool-server/data-transform"
+      },
+      {
+        "scenario": "Report generator produces malformed output",
+        "severity": "medium",
+        "mitigation": "Validate output schema before delivery; reject and retry on failure",
+        "related_integration": "mcp://tool-server/report-generator"
+      }
+    ],
+    "assumption_risks": [
+      "External APIs maintain backward compatibility within major version",
+      "Network latency remains below 500ms under normal conditions"
+    ],
+    "external_dependencies_risk": [
+      "Third-party API rate limits may reduce throughput during peak hours"
+    ],
+    "edge_cases": [
+      "Empty result set from customer API",
+      "Concurrent blueprint version conflict during rollback"
+    ],
+    "on_failure": {
+      "default": "retry",
+      "retry_policy": {
+        "max_retries": 3,
+        "backoff": "exponential"
+      }
+    },
+    "circuit_breaker": {
+      "failure_threshold": 5,
+      "half_open_after_seconds": 30,
+      "success_threshold": 3,
+      "on_open": "fallback"
+    }
+  },
+
+  "personas": [
+    {
+      "id": "lead-engineer",
+      "trust_level": "high",
+      "capabilities_override": {
+        "deny_all_writes": false
+      }
+    },
+    {
+      "id": "read-only-auditor",
+      "trust_level": "low",
+      "capabilities_override": {
+        "deny_all_writes": true,
+        "restrict_tool_access": [
+          "mcp://tool-server/report-generator"
+        ]
+      }
+    },
+    {
+      "id": "external-observer",
+      "trust_level": "zero",
+      "capabilities_override": {
+        "deny_all_writes": true,
+        "restrict_tool_access": []
+      }
+    }
+  ],
+
+  "runtime_observability": {
+    "intent_traceability": {
+      "reasoning_manifest_uri": "https://example.com/agents/sample-agent-001/reasoning",
+      "log_format": "json",
+      "log_retention_days": 90
+    },
+    "heartbeat": {
+      "broadcast_uri": "https://example.com/monitoring/heartbeat",
+      "interval_seconds": 30
+    },
+    "guardian_alerts": [
+      {
+        "metric_ref": "task_completion_rate",
+        "threshold": 0.90,
+        "operator": "lt",
+        "action": "alert"
+      },
+      {
+        "metric_ref": "error_rate_percent",
+        "threshold": 5.0,
+        "operator": "gt",
+        "action": "pause"
+      }
+    ]
+  }
+}

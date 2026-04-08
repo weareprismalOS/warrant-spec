@@ -1,0 +1,121 @@
+{
+  "warrant_version": "0.11.0",
+  "agent_id": "urn:uuid:550e8400-e29b-41d4-a716-446655440000",
+  "agent_name": "Example Financial Agent",
+  "conformance_level": "L2",
+  "manifest": {
+    "blueprint_id": "financial-agent-v1",
+    "version": "1.0.0",
+    "owner": "urn:person:admin@example.com",
+    "status": "draft",
+    "created_at": "2026-04-08T00:00:00Z",
+    "name": "Financial Transaction Agent"
+  },
+  "objective": {
+    "primary_goal": "Execute authorized financial transactions",
+    "success_criteria": [
+      "Transactions complete within SLA",
+      "Audit trail maintained",
+      "No unauthorized transfers"
+    ],
+    "constraints": [
+      "Maximum transaction value: $10,000",
+      "Requires human approval above $5,000"
+    ]
+  },
+  "ux_logic": {
+    "interaction_mode": "batch",
+    "user_feedback_frequency": "on_completion"
+  },
+  "feasibility": {
+    "required_capabilities": ["api_access", "database_read", "email_notification"],
+    "resource_estimates": {
+      "max_tokens_per_task": 10000,
+      "max_concurrent_tasks": 5
+    }
+  },
+  "stakeholders": {
+    "owner": "urn:person:admin@example.com",
+    "operators": ["urn:group:finance-team"],
+    "affected_parties": ["urn:group:customers"]
+  },
+  "compliance_frameworks": {
+    "regulations": ["SOX", "GDPR"],
+    "audit_requirements": ["transaction_logging", "access_control"]
+  },
+  "risk_profile": {
+    "risk_level": "high",
+    "threats": [
+      {
+        "name": "unauthorized_transaction",
+        "mitigation": "human_approval_threshold"
+      },
+      {
+        "name": "data_exfiltration",
+        "mitigation": "output_monitoring"
+      }
+    ]
+  },
+  "data_model": {
+    "inputs": ["transaction_request", "customer_id"],
+    "outputs": ["transaction_result", "audit_record"],
+    "pii_handling": "encrypt_at_rest_and_transit"
+  },
+  "boundaries": {
+    "max_execution_time_seconds": 300,
+    "rate_limits": {
+      "transactions_per_hour": 100
+    },
+    "kill_switch_triggers": [
+      "unusual_volume_detected",
+      "authentication_failure",
+      "manual_override"
+    ]
+  },
+  "integration_map": {
+    "external_services": [
+      {
+        "name": "banking_api",
+        "access_level": "read_write",
+        "data_classification": "confidential"
+      }
+    ]
+  },
+  "success_metrics": {
+    "kpis": [
+      "transaction_success_rate",
+      "average_processing_time",
+      "error_rate"
+    ],
+    "targets": {
+      "transaction_success_rate": ">= 99.9%",
+      "average_processing_time": "< 5 seconds"
+    }
+  },
+  "failure_modes": {
+    "known_failures": [
+      {
+        "name": "api_timeout",
+        "recovery": "retry_with_backoff"
+      },
+      {
+        "name": "insufficient_funds",
+        "recovery": "notify_and_halt"
+      }
+    ]
+  },
+  "personas": {
+    "default_persona": "cautious_executor",
+    "available_personas": [
+      {
+        "name": "cautious_executor",
+        "description": "Conservative transaction execution with human confirmation"
+      }
+    ]
+  },
+  "runtime_observability": {
+    "logging_level": "detailed",
+    "metrics_export": ["prometheus"],
+    "alerting_channels": ["email", "slack"]
+  }
+}

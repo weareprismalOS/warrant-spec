@@ -1,0 +1,131 @@
+{
+  "_vector_metadata": {
+    "vector_id": "invariant-1-invalid",
+    "target": "invariant-1",
+    "target_description": "Integration ↔ Failure Modes: integration without matching failure scenario",
+    "expected_result": "invalid",
+    "expected_error": "Integration 'https://example.com/api2' in authorised_integrations has no corresponding entry in failure_modes.known_failure_modes with matching related_integration",
+    "warrant_version": "0.11.0",
+    "notes": "Second authorised integration has no corresponding failure scenario — violates Invariant 1"
+  },
+  "blueprint": {
+    "warrant_version": "0.11.0",
+    "conformance_level": "L1",
+    "manifest": {
+      "blueprint_id": "inv1-invalid-001",
+      "version": "1.0.0",
+      "owner": "did:example:owner",
+      "status": "draft",
+      "created_at": "2025-01-01T00:00:00Z"
+    },
+    "objective": {
+      "primary_objective": "Invariant 1 invalid vector",
+      "domain": "testing",
+      "autonomy_level": "supervised",
+      "success_criteria": [
+        "Fail invariant 1 check"
+      ],
+      "out_of_scope": [
+        "Nothing"
+      ]
+    },
+    "ux_logic": {
+      "interaction_model": "approve",
+      "user_facing": true,
+      "tone_and_voice": "Professional and concise"
+    },
+    "feasibility": {
+      "budget_limit": {
+        "amount": 1000,
+        "currency": "USD",
+        "time_period": "monthly"
+      }
+    },
+    "stakeholders": {
+      "approvers": [
+        "did:example:approver"
+      ]
+    },
+    "compliance_frameworks": {
+      "frameworks": [
+        {
+          "name": "EU AI Act",
+          "version": "2024"
+        }
+      ]
+    },
+    "risk_profile": {
+      "hitl_triggers": [
+        {
+          "metric": "error_rate",
+          "threshold": 0.5,
+          "operator": "gt",
+          "action": "pause_and_verify"
+        }
+      ],
+      "on_failure": {
+        "default": "escalate",
+        "escalation_path": [
+          "did:example:escalation-contact"
+        ]
+      }
+    },
+    "data_model": {
+      "data_sources": [
+        "https://example.com/source"
+      ]
+    },
+    "boundaries": {
+      "kill_switch": {
+        "type": "api_endpoint",
+        "uri": "https://example.com/kill"
+      },
+      "scope_boundaries": [
+        "Must not access production databases"
+      ],
+      "prohibited_actions": []
+    },
+    "integration_map": {
+      "authorised_integrations": [
+        "https://example.com/api",
+        "https://example.com/api2"
+      ],
+      "tool_access": [
+        "mcp://tool-server/tool-name"
+      ],
+      "failure_handling": "Retry with exponential backoff, then escalate"
+    },
+    "success_metrics": {
+      "primary_kpi": "accuracy",
+      "baseline": "95%",
+      "measurement_frequency": "daily",
+      "evidence_pack_config": {
+        "storage": "s3://bucket",
+        "retention_days": 365
+      }
+    },
+    "failure_modes": {
+      "known_failure_modes": [
+        {
+          "scenario": "API timeout on example.com",
+          "severity": "high",
+          "mitigation": "Retry with backoff",
+          "related_integration": "https://example.com/api"
+        },
+        {
+          "scenario": "Tool server unavailable",
+          "severity": "high",
+          "mitigation": "Queue and retry",
+          "related_integration": "mcp://tool-server/tool-name"
+        }
+      ]
+    },
+    "personas": [
+      {
+        "id": "persona-1",
+        "trust_level": "standard"
+      }
+    ],
+    "runtime_observability": {}
+  }
+}

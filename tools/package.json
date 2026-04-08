@@ -1,0 +1,17 @@
+{
+  "name": "warrant-open-standard-tests",
+  "version": "0.10.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "validate": "node warrant-validator.js",
+    "validate:vectors": "vitest run tests/warrant-validator.test.js"
+  },
+  "devDependencies": {
+    "ajv": "^8.x",
+    "ajv-formats": "^3.x",
+    "fast-check": "^3.x",
+    "vitest": "^3.x"
+  }
+}

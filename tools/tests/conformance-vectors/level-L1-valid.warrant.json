@@ -1,0 +1,119 @@
+{
+  "_vector_metadata": {
+    "vector_id": "level-L1-valid",
+    "target": "level-L1",
+    "target_description": "L1 (Semantic) conformance: all 13 Pillars present with core Pillars populated per L1 conditional rules",
+    "expected_result": "valid",
+    "expected_error": null,
+    "warrant_version": "0.11.0",
+    "notes": "L1 requires: manifest baseline fields, objective.domain + autonomy_level, compliance_frameworks.frameworks, risk_profile.hitl_triggers (minItems:1) + on_failure, boundaries.scope_boundaries (minItems:1)"
+  },
+  "blueprint": {
+    "warrant_version": "0.11.0",
+    "conformance_level": "L1",
+    "manifest": {
+      "blueprint_id": "level-L1-valid-001",
+      "version": "1.0.0",
+      "owner": "did:example:owner",
+      "status": "draft",
+      "created_at": "2025-01-01T00:00:00Z"
+    },
+    "objective": {
+      "primary_objective": "L1 conformance validation",
+      "domain": "testing",
+      "autonomy_level": "supervised",
+      "success_criteria": [
+        "Pass L1 conformance check"
+      ],
+      "out_of_scope": [
+        "Nothing"
+      ]
+    },
+    "ux_logic": {
+      "interaction_model": "approve",
+      "user_facing": false
+    },
+    "feasibility": {
+      "budget_limit": {
+        "amount": 500,
+        "currency": "USD"
+      }
+    },
+    "stakeholders": {
+      "approvers": [
+        "did:example:approver"
+      ]
+    },
+    "compliance_frameworks": {
+      "frameworks": [
+        {
+          "name": "ISO 27001",
+          "version": "2022"
+        }
+      ]
+    },
+    "risk_profile": {
+      "hitl_triggers": [
+        {
+          "metric": "error_rate",
+          "threshold": 0.5,
+          "operator": "gt",
+          "action": "pause_and_verify"
+        }
+      ],
+      "on_failure": {
+        "default": "escalate",
+        "escalation_path": [
+          "did:example:escalation-contact"
+        ]
+      }
+    },
+    "data_model": {
+      "data_sources": [
+        "https://example.com/source"
+      ]
+    },
+    "boundaries": {
+      "scope_boundaries": [
+        "Must not access production databases"
+      ],
+      "prohibited_actions": []
+    },
+    "integration_map": {
+      "authorised_integrations": [
+        "https://example.com/api"
+      ],
+      "tool_access": [
+        "mcp://tool-server/tool-name"
+      ],
+      "failure_handling": "Retry with exponential backoff, then escalate"
+    },
+    "success_metrics": {
+      "primary_kpi": "accuracy",
+      "baseline": "95%",
+      "measurement_frequency": "daily",
+      "evidence_pack_config": {
+        "storage": "s3://bucket",
+        "retention_days": 365
+      }
+    },
+    "failure_modes": {
+      "known_failure_modes": [
+        {
+          "scenario": "API timeout",
+          "severity": "high",
+          "mitigation": "Retry with backoff",
+          "related_integration": "https://example.com/api"
+        },
+        {
+          "scenario": "Tool server unavailable",
+          "severity": "high",
+          "mitigation": "Queue and retry",
+          "related_integration": "mcp://tool-server/tool-name"
+        }
+      ]
+    },
+    "personas": [],
+    "runtime_observability": {}
+  }
+}

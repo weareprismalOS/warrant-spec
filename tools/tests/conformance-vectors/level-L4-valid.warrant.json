@@ -1,0 +1,141 @@
+{
+  "_vector_metadata": {
+    "vector_id": "level-L4-valid",
+    "target": "level-L4",
+    "target_description": "L4 (Ledger) conformance: L3 + manifest.ledger_anchor with placeholder values",
+    "expected_result": "valid",
+    "expected_error": null,
+    "warrant_version": "0.11.0",
+    "notes": "L4 adds: manifest.ledger_anchor (network in CAIP-2 format, anchor_hash as prefixed hash). Uses placeholder ledger values for structural validation only."
+  },
+  "blueprint": {
+    "warrant_version": "0.11.0",
+    "conformance_level": "L4",
+    "manifest": {
+      "blueprint_id": "level-L4-valid-001",
+      "version": "1.0.0",
+      "owner": "did:example:owner",
+      "status": "active",
+      "created_at": "2025-01-01T00:00:00Z",
+      "signature": {
+        "signed_by": "did:example:signer",
+        "hash": "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2",
+        "algorithm": "EdDSA"
+      },
+      "ledger_anchor": {
+        "network": "eip155:1",
+        "anchor_hash": "sha256:a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2"
+      },
+      "discovery_uri": "https://example.com/discovery"
+    },
+    "objective": {
+      "primary_objective": "L4 conformance validation",
+      "domain": "testing",
+      "autonomy_level": "supervised",
+      "success_criteria": [
+        "Pass L4 conformance check"
+      ],
+      "out_of_scope": [
+        "Nothing"
+      ]
+    },
+    "ux_logic": {
+      "interaction_model": "approve",
+      "user_facing": true,
+      "tone_and_voice": "Professional and concise"
+    },
+    "feasibility": {
+      "budget_limit": {
+        "amount": 1000,
+        "currency": "USD"
+      }
+    },
+    "stakeholders": {
+      "approvers": [
+        "did:example:approver"
+      ]
+    },
+    "compliance_frameworks": {
+      "frameworks": [
+        {
+          "name": "EU AI Act",
+          "version": "2024"
+        }
+      ]
+    },
+    "risk_profile": {
+      "hitl_triggers": [
+        {
+          "metric": "error_rate",
+          "threshold": 0.5,
+          "operator": "gt",
+          "action": "pause_and_verify"
+        }
+      ],
+      "on_failure": {
+        "default": "escalate",
+        "escalation_path": [
+          "did:example:escalation-contact"
+        ]
+      },
+      "alert_endpoint": "https://example.com/alerts",
+      "alert_format": "webhook"
+    },
+    "data_model": {
+      "data_sources": [
+        "https://example.com/source"
+      ]
+    },
+    "boundaries": {
+      "kill_switch": {
+        "type": "api_endpoint",
+        "uri": "https://example.com/kill"
+      },
+      "scope_boundaries": [
+        "Must not access production databases"
+      ],
+      "prohibited_actions": []
+    },
+    "integration_map": {
+      "authorised_integrations": [
+        "https://example.com/api"
+      ],
+      "tool_access": [
+        "mcp://tool-server/tool-name"
+      ],
+      "failure_handling": "Retry with exponential backoff, then escalate"
+    },
+    "success_metrics": {
+      "primary_kpi": "accuracy",
+      "baseline": "95%",
+      "measurement_frequency": "daily",
+      "evidence_pack_config": {
+        "storage": "s3://bucket",
+        "retention_days": 365
+      }
+    },
+    "failure_modes": {
+      "known_failure_modes": [
+        {
+          "scenario": "API timeout",
+          "severity": "high",
+          "mitigation": "Retry with backoff",
+          "related_integration": "https://example.com/api"
+        },
+        {
+          "scenario": "Tool server unavailable",
+          "severity": "high",
+          "mitigation": "Queue and retry",
+          "related_integration": "mcp://tool-server/tool-name"
+        }
+      ]
+    },
+    "personas": [
+      {
+        "id": "persona-1",
+        "trust_level": "standard"
+      }
+    ],
+    "runtime_observability": {}
+  }
+}

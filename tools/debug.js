@@ -1,0 +1,10 @@
+const fs = require('fs');
+const Ajv = require('ajv');
+const addFormats = require('ajv-formats');
+const ajv = new Ajv({ allErrors: true });
+addFormats(ajv);
+const schema = JSON.parse(fs.readFileSync('WARRANT Intent Blueprint.json'));
+const validate = ajv.compile(schema);
+const bp = JSON.parse(fs.readFileSync('tests/conformance-vectors/invariant-5-valid.warrant.json')).blueprint;
+validate(bp);
+console.log(JSON.stringify(validate.errors, null, 2));
